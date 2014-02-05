@@ -7,9 +7,10 @@ Spork.prefork do
   # need to restart spork for it take effect.
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
+  Rails.env = 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'capybara'
-  require 'capybara-webkit'
+  require 'capybara/poltergeist'
   require 'database_cleaner'
   require 'launchy'
   require 'rspec/rails'
@@ -18,7 +19,7 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :poltergeist
   DatabaseCleaner.logger = Rails.logger
   DatabaseCleaner.strategy = :truncation
 
@@ -45,6 +46,7 @@ Spork.prefork do
         File.unlink('public/_test.html') rescue nil
       end
     end
+    config.include Capybara::DSL
   end
 
 end

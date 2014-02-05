@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'capybara', :require => false
 #  gem 'capybara-webkit', :require => false
+  gem 'poltergeist', :require => false
   gem 'database_cleaner', :require => false
   gem 'factory_girl_rails', :require => false
   gem 'launchy', :require => false
