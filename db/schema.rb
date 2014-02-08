@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804201102) do
+ActiveRecord::Schema.define(:version => 20140203023132) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
@@ -22,22 +22,25 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.boolean  "admin",                                 :default => false, :null => false
     t.datetime "created_at",                                               :null => false
     t.datetime "updated_at",                                               :null => false
-    t.index ["email"], :name => "index_users_on_email", :unique => true
     t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+    t.index ["email"], :name => "index_users_on_email", :unique => true
   end
 
   create_table "sites", :force => true do |t|
-    t.integer  "user_id",                          :null => false
-    t.string   "key",                              :null => false
-    t.string   "name",                             :null => false
+    t.integer  "user_id",                              :null => false
+    t.string   "key",                                  :null => false
+    t.string   "name",                                 :null => false
     t.string   "url"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.integer  "moderation_method", :default => 0, :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "moderation_method", :default => 0,     :null => false
     t.string   "akismet_key"
+    t.boolean  "use_recaptcha",     :default => false
+    t.string   "recaptcha_key"
+    t.index ["user_id"], :name => "_sites_on_user_id"
     t.index ["key"], :name => "index_sites_on_key", :unique => true
     t.index ["user_id"], :name => "index_sites_on_user_id"
-    t.foreign_key ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "sites_ibfk_1"
+    t.foreign_key ["user_id"], "users", ["id"], :on_update => :no_action, :on_delete => :no_action
   end
 
   create_table "topics", :force => true do |t|
@@ -47,9 +50,9 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.string   "url",            :null => false
     t.datetime "created_at",     :null => false
     t.datetime "last_posted_at"
-    t.index ["site_id", "key"], :name => "index_topics_on_site_id_and_key", :unique => true
     t.index ["site_id"], :name => "index_topics_on_site_id"
-    t.foreign_key ["site_id"], "sites", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "topics_ibfk_1"
+    t.index ["site_id", "key"], :name => "index_topics_on_site_id_and_key", :unique => true
+    t.foreign_key ["site_id"], "sites", ["id"], :on_update => :cascade, :on_delete => :cascade
   end
 
   create_table "comments", :force => true do |t|
@@ -63,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20110804201102) do
     t.text     "content",                          :null => false
     t.datetime "created_at",                       :null => false
     t.index ["topic_id"], :name => "index_comments_on_topic_id"
-    t.foreign_key ["topic_id"], "topics", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "comments_ibfk_1"
+    t.foreign_key ["topic_id"], "topics", ["id"], :on_update => :cascade, :on_delete => :cascade
   end
 
 end

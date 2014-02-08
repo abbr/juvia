@@ -22,10 +22,12 @@ gem 'nokogiri'
 
 gem 'bcrypt-ruby'
 
-group :development do
+group :test do
   # To use debugger
   gem 'debugger'
-  
+end
+
+group :development do
   gem 'guard-livereload'
 
   # Gems used for comment import from WordPress
