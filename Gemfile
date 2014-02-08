@@ -20,11 +20,12 @@ gem 'nokogiri'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'ruby-debug'
 gem 'bcrypt-ruby'
 
 group :development do
+  # To use debugger
+  gem 'debugger'
+  
   gem 'guard-livereload'
 
   # Gems used for comment import from WordPress
@@ -39,6 +40,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'capybara', :require => false
+  gem 'selenium-webdriver', :require => false
 #  gem 'capybara-webkit', :require => false
   gem 'poltergeist', :require => false
   gem 'database_cleaner', :require => false

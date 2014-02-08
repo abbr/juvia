@@ -82,7 +82,7 @@ shared_examples "posting new comments with the Javascript API" do
     comment.author_email.should == 'kotori@kotori.jp'
     comment.content.should == 'a *new* comment!'
     comment.author_ip.should == '127.0.0.1'
-    comment.author_user_agent.should =~ /phantomjs/i
+    comment.author_user_agent.should =~ /Mozilla/i
     comment.referer.should include("127.0.0.1")
   end
 end
