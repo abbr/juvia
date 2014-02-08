@@ -9,3 +9,4 @@ tmp/**/*
 public/_test.html
 .project
 Gemfile.lock
+/log
