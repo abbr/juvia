@@ -37,10 +37,9 @@ ActiveRecord::Schema.define(:version => 20140203023132) do
     t.string   "akismet_key"
     t.boolean  "use_recaptcha",     :default => false
     t.string   "recaptcha_key"
-    t.index ["user_id"], :name => "_sites_on_user_id"
     t.index ["key"], :name => "index_sites_on_key", :unique => true
     t.index ["user_id"], :name => "index_sites_on_user_id"
-    t.foreign_key ["user_id"], "users", ["id"], :on_update => :no_action, :on_delete => :no_action
+    t.foreign_key ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade
   end
 
   create_table "topics", :force => true do |t|
@@ -50,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20140203023132) do
     t.string   "url",            :null => false
     t.datetime "created_at",     :null => false
     t.datetime "last_posted_at"
-    t.index ["site_id"], :name => "index_topics_on_site_id"
     t.index ["site_id", "key"], :name => "index_topics_on_site_id_and_key", :unique => true
+    t.index ["site_id"], :name => "index_topics_on_site_id"
     t.foreign_key ["site_id"], "sites", ["id"], :on_update => :cascade, :on_delete => :cascade
   end
 

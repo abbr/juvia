@@ -48,7 +48,6 @@ Spork.prefork do
         File.unlink('public/_test.html') rescue nil
       end
     end
-    config.order = "random"
     config.include Capybara::DSL
   end
 
