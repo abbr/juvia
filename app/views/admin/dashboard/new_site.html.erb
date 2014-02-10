@@ -52,6 +52,15 @@
     <%= f.text_field :akismet_key %>
   </div>
   
+	<div class="para">
+		<span style="font-weight:bold">Use <a href="http://www.google.com/recaptcha" target="_blank"">reCAPTCHA</a></span>
+		<%= f.check_box :use_recaptcha %>
+	</div>
+	<div class="para" id='div_recap_key' style="padding-left:10px;<%='display:none' if !@site.use_recaptcha%>">
+		<%= f.label :recaptcha_key, 'reCAPTCHA key', style: 'font-weight:normal;'%>
+		<%= f.text_field :recaptcha_key %>
+	</div>
+  
   <div class="para actions">
     <%= arrowright_button_submit_tag 'Next step &raquo;'.html_safe %>
   </div>
@@ -59,7 +68,6 @@
 
 <script>
 function moderationMethodChanged() {
-  console.log('here');
   if ($('#site_moderation_method_akismet').prop('checked')) {
     $('.akismet_required').show();
   } else {

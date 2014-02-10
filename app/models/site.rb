@@ -2,21 +2,22 @@ class Site < ActiveRecord::Base
   belongs_to :user, :inverse_of => :sites
   has_many :topics, :inverse_of => :site
   has_many :comments, :through => :topics
-  
+
   acts_as_enum :moderation_method, [:none, :akismet, :manual]
-  
+
   validates_presence_of :name
   validates_presence_of :key
   validates_presence_of :moderation_method
   validates_presence_of :url, :if => :moderation_method_is_akismet?
   validates_presence_of :akismet_key, :if => :moderation_method_is_akismet?
+  validates_presence_of :recaptcha_key, :if => :use_recaptcha?
 
   before_validation :nullify_blank_fields
-  
-  attr_accessible :name, :url, :moderation_method, :akismet_key
+
+  attr_accessible :name, :url, :moderation_method, :akismet_key,:use_recaptcha,:recaptcha_key
   attr_accessible :user, :user_id, :name, :key, :url,
-    :moderation_method, :akismet_key, :as => :admin
-  
+    :moderation_method, :akismet_key,:use_recaptcha,:recaptcha_key, :as => :admin
+
   default_value_for(:key) { SecureRandom.hex(20).to_i(16).to_s(36) }
 
   def public_topics_info
@@ -46,7 +47,8 @@ class Site < ActiveRecord::Base
     topics.order("last_posted_at DESC")
   end
 
-private
+  private
+
   def nullify_blank_fields
     self.url = nil if url.blank?
     self.akismet_key = nil if akismet_key.blank?
