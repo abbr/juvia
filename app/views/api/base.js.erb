@@ -235,6 +235,10 @@ if (!Juvia) {
 			topic_url   : $container.data('topic-url'),
 			author_name : $('input[name="author_name"]', form).val(),
 			author_email: $('input[name="author_email"]', form).val(),
+			<%if @topic.site.use_recaptcha%>
+			recaptcha_challenge_field: $('input[name="recaptcha_challenge_field"]', form).val(),
+			recaptcha_response_field: $('input[name="recaptcha_response_field"]', form).val(),
+			<%end%>
 			content     : this.compress($('textarea[name="content"]', form).val())
 		});
 	}

@@ -26,6 +26,20 @@ class="juvia-add-comment-form">
 			<textarea name="content" cols="80" rows="14"></textarea>
 		</div>
 	</div>
+	<%if @topic.site.use_recaptcha%>
+		<div id='div_recaptcha'>
+			<script type="text/javascript">
+				$(function() {
+					$.getScript('http://www.google.com/recaptcha/api/js/recaptcha_ajax.js', function() {
+						Recaptcha.create("6LfAAuwSAAAAALka19skLY1IRn8OJ9x91nAYE5Qj", "div_recaptcha", {
+							theme : "red",
+							callback : Recaptcha.focus_response_field
+						});
+					});
+				});
+			</script>
+		</div>
+	<% end%>
 	
 	<div class="juvia-form-actions">
 		<div class="juvia-action juvia-submit-button">
