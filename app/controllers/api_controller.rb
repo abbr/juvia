@@ -61,6 +61,26 @@ class ApiController < ApplicationController
         return
       end
       
+      @site = Site.find_by_key(@site_key) 
+      if @site.use_recaptcha?
+        if params[:recaptcha_response_field].blank?
+          render :partial => 'invalid_recaptcha'
+          return
+        end
+        require 'uri'
+        require 'net/http'
+        uri = URI('http://www.google.com/recaptcha/api/verify')
+        res = Net::HTTP.post_form(uri, privatekey: @site.recaptcha_private_key, 
+          remoteip: request.remote_ip, 
+          challenge: params[:recaptcha_challenge_field],
+          response: params[:recaptcha_response_field]
+          )
+        if 'true'.casecmp(res.body.split(/\n/)[0].strip) != 0
+          render :partial => 'invalid_recaptcha'
+          return
+        end
+      end
+      
       Topic.transaction do
         @topic = Topic.lookup_or_create(
           @site_key,

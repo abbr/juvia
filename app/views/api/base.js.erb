@@ -228,6 +228,7 @@ if (!Juvia) {
 		var $container = $(form).closest('.juvia-container');
 		this.setSubmitting($container, true);
 		this.saveCommentBox($container);
+		$('.juvia-form-actions .juvia-error', $(form)).hide();
 		this.loadScript('/api/add_comment', {
 			site_key    : $container.data('site-key'),
 			topic_key   : $container.data('topic-key'),
@@ -235,8 +236,13 @@ if (!Juvia) {
 			topic_url   : $container.data('topic-url'),
 			author_name : $('input[name="author_name"]', form).val(),
 			author_email: $('input[name="author_email"]', form).val(),
+			<%if (@topic && @topic.site && @topic.site.use_recaptcha)%>
+			recaptcha_challenge_field: Recaptcha.get_challenge(),
+			recaptcha_response_field: Recaptcha.get_response(),
+			<%end%>
 			content     : this.compress($('textarea[name="content"]', form).val())
 		});
+		Recaptcha.reload();
 	}
 	
 	Juvia.previewComment = function(formElement) {
