@@ -31,7 +31,7 @@ class="juvia-add-comment-form">
 			<script type="text/javascript">
 				$(function() {
 					$.getScript('http://www.google.com/recaptcha/api/js/recaptcha_ajax.js', function() {
-						Recaptcha.create("6LfAAuwSAAAAALka19skLY1IRn8OJ9x91nAYE5Qj", "div_recaptcha", {
+						Recaptcha.create("<%=@topic.site.recaptcha_public_key%>", "div_recaptcha", {
 							theme : "red",
 							callback : Recaptcha.focus_response_field
 						});

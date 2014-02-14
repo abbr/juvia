@@ -10,13 +10,14 @@ class Site < ActiveRecord::Base
   validates_presence_of :moderation_method
   validates_presence_of :url, :if => :moderation_method_is_akismet?
   validates_presence_of :akismet_key, :if => :moderation_method_is_akismet?
-  validates_presence_of :recaptcha_key, :if => :use_recaptcha?
+  validates_presence_of :recaptcha_public_key, :if => :use_recaptcha?
+  validates_presence_of :recaptcha_private_key, :if => :use_recaptcha?
 
   before_validation :nullify_blank_fields
 
-  attr_accessible :name, :url, :moderation_method, :akismet_key,:use_recaptcha,:recaptcha_key
+  attr_accessible :name, :url, :moderation_method, :akismet_key,:use_recaptcha,:recaptcha_public_key,:recaptcha_private_key
   attr_accessible :user, :user_id, :name, :key, :url,
-    :moderation_method, :akismet_key,:use_recaptcha,:recaptcha_key, :as => :admin
+    :moderation_method, :akismet_key,:use_recaptcha,:recaptcha_public_key,:recaptcha_private_key, :as => :admin
 
   default_value_for(:key) { SecureRandom.hex(20).to_i(16).to_s(36) }
 

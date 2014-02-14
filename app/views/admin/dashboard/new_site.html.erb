@@ -57,8 +57,13 @@
 		<%= f.check_box :use_recaptcha %>
 	</div>
 	<div class="para" id='div_recap_key' style="padding-left:10px;<%='display:none' if !@site.use_recaptcha%>">
-		<%= f.label :recaptcha_key, 'reCAPTCHA key', style: 'font-weight:normal;'%>
-		<%= f.text_field :recaptcha_key %>
+		<div>
+		<%= f.label :recaptcha_public_key, 'reCAPTCHA public key', style: 'font-weight:normal;'%>
+		<%= f.text_field :recaptcha_public_key %>
+		</div><div>
+		<%= f.label :recaptcha_private_key, 'reCAPTCHA private key', style: 'font-weight:normal;'%>
+		<%= f.text_field :recaptcha_private_key %>
+		</div>
 	</div>
   
   <div class="para actions">

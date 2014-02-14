@@ -27,16 +27,17 @@ ActiveRecord::Schema.define(:version => 20140203023132) do
   end
 
   create_table "sites", :force => true do |t|
-    t.integer  "user_id",                              :null => false
-    t.string   "key",                                  :null => false
-    t.string   "name",                                 :null => false
+    t.integer  "user_id",                                  :null => false
+    t.string   "key",                                      :null => false
+    t.string   "name",                                     :null => false
     t.string   "url"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.integer  "moderation_method", :default => 0,     :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.integer  "moderation_method",     :default => 0,     :null => false
     t.string   "akismet_key"
-    t.boolean  "use_recaptcha",     :default => false
-    t.string   "recaptcha_key"
+    t.boolean  "use_recaptcha",         :default => false
+    t.string   "recaptcha_public_key"
+    t.string   "recaptcha_private_key"
     t.index ["key"], :name => "index_sites_on_key", :unique => true
     t.index ["user_id"], :name => "index_sites_on_user_id"
     t.foreign_key ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade
