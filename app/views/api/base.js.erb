@@ -242,7 +242,9 @@ if (!Juvia) {
 			<%end%>
 			content     : this.compress($('textarea[name="content"]', form).val())
 		});
+		<%if (@topic && @topic.site && @topic.site.use_recaptcha)%>
 		Recaptcha.reload();
+		<%end%>
 	}
 	
 	Juvia.previewComment = function(formElement) {
