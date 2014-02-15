@@ -139,6 +139,16 @@ if (!Juvia) {
 	Juvia.handleResponse = function(response) {
 		this['handle' + response.action](response);
 		this.reinstallBehavior();
+		switch(response.action){
+			case "AddComment":
+			case "ShowError":
+			case "ShowFormError":
+				<%if (@topic && @topic.site && @topic.site.use_recaptcha)%>
+				Recaptcha.reload();
+				<%end%>
+			default:
+				break;
+		}
 	}
 	
 	Juvia.handleLoadTopic = function(options) {
@@ -242,9 +252,6 @@ if (!Juvia) {
 			<%end%>
 			content     : this.compress($('textarea[name="content"]', form).val())
 		});
-		<%if (@topic && @topic.site && @topic.site.use_recaptcha)%>
-		Recaptcha.reload();
-		<%end%>
 	}
 	
 	Juvia.previewComment = function(formElement) {
