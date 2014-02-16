@@ -11,6 +11,7 @@ Juvia currently also makes no effort to support nested comments. I believe neste
 Other notable highlights:
 
  * Moderation support, either manually or automatically via [Akismet](http://akismet.com/).
+ * Prevent spam via [reCAPTCHA](http://www.google.com/recaptcha)
  * Multi-user support. With this I don't mean commenters but users who operate the Juvia admin panel. Each user account is isolated and can only see and manage its own sites, topics and comments, except for administrators who can see and manage everything.
  * Email notification of new comments.
  * Wordpress comment import (thanks to JangoSteve).
